@@ -1,4 +1,5 @@
 import 'package:bmi_calc/ui/utils/constrained.dart';
+import 'package:bmi_calc/ui/widgets/category.dart';
 import 'package:bmi_calc/ui/widgets/reusable_card.dart';
 import 'package:bmi_calc/ui/widgets/slider.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Gender gender = Gender.male;
+  SliderWidget slider = SliderWidget();
   var age = 20;
   var weight = 70;
   var height = 180;
@@ -90,7 +92,7 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: ReusableCard(
                   color: kSelectedContainer,
-                  child: SliderWidget(),
+                  child: slider,
                   onTap: () {},
                 ),
               ),
@@ -103,14 +105,18 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: ReusableCard(
                   color: Theme.of(context).primaryColor,
-                  child: Container(),
+                  child: Category(
+                    type: Counter.weight,
+                  ),
                   onTap: () {},
                 ),
               ),
               Expanded(
                 child: ReusableCard(
                   color: Theme.of(context).primaryColor,
-                  child: Container(),
+                  child: Category(
+                    type: Counter.age,
+                  ),
                   onTap: () {},
                 ),
               ),
