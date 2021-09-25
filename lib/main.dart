@@ -1,4 +1,5 @@
 import 'package:bmi_calc/ui/pages/home.dart';
+import 'package:bmi_calc/ui/pages/result_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'BML Calculator',
       theme: ThemeData(
         primaryColor: const Color(0xFF212336),
@@ -36,21 +38,31 @@ class MyApp extends StatelessWidget {
             color: Colors.grey,
             fontSize: 20.0,
           ),
-
           bodyText1: TextStyle(
             color: Colors.grey,
             fontSize: 14.0,
           ),
+          bodyText2: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+          ),
         ),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          elevation: 3,
-          title: const Text('BMI Calculator'),
-          centerTitle: true,
-        ),
-        body: HomePage(),
-      ),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (context) => const HomePage());
+
+          case '/result':
+            double resultBMI = settings.arguments as double;
+            return MaterialPageRoute(
+              builder: (context) => ResultPage(
+                resultBMI: resultBMI.roundToDouble(),
+              ),
+            );
+        }
+      },
+      home: const HomePage(),
     );
   }
 }

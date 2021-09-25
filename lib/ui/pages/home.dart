@@ -16,114 +16,140 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Gender gender = Gender.male;
   SliderWidget slider = SliderWidget();
-  var age = 20;
-  var weight = 70;
-  var height = 180;
+  Category weightCategory = Category(
+    type: Counter.weight,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: Row(
-            children: [
-              Expanded(
-                child: ReusableCard(
-                  color: gender == Gender.male
-                      ? kSelectedContainer
-                      : Theme.of(context).primaryColor,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.mars,
-                        size: 100,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'MALE',
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                    ],
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 3,
+        title: const Text('BMI Calculator'),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: ReusableCard(
+                    color: gender == Gender.male
+                        ? kSelectedContainer
+                        : Theme.of(context).primaryColor,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.mars,
+                          size: 100,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'MALE',
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      setState(() {
+                        gender = Gender.male;
+                      });
+                    },
                   ),
-                  onTap: () {
-                    setState(() {
-                      gender = Gender.male;
-                    });
-                  },
                 ),
-              ),
-              Expanded(
-                child: ReusableCard(
-                  color: gender == Gender.female
-                      ? kSelectedContainer
-                      : Theme.of(context).primaryColor,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.venus,
-                        size: 100,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'FEMALE',
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                    ],
+                Expanded(
+                  child: ReusableCard(
+                    color: gender == Gender.female
+                        ? kSelectedContainer
+                        : Theme.of(context).primaryColor,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.venus,
+                          size: 100,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'FEMALE',
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      setState(() {
+                        gender = Gender.female;
+                      });
+                    },
                   ),
-                  onTap: () {
-                    setState(() {
-                      gender = Gender.female;
-                    });
-                  },
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: Row(
-            children: [
-              Expanded(
-                child: ReusableCard(
-                  color: kSelectedContainer,
-                  child: slider,
-                  onTap: () {},
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Row(
-            children: [
-              Expanded(
-                child: ReusableCard(
-                  color: Theme.of(context).primaryColor,
-                  child: Category(
-                    type: Counter.weight,
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: ReusableCard(
+                    color: kSelectedContainer,
+                    child: slider,
+                    onTap: () {},
                   ),
-                  onTap: () {},
                 ),
-              ),
-              Expanded(
-                child: ReusableCard(
-                  color: Theme.of(context).primaryColor,
-                  child: Category(
-                    type: Counter.age,
-                  ),
-                  onTap: () {},
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: ReusableCard(
+                    color: Theme.of(context).primaryColor,
+                    child: weightCategory,
+                    onTap: () {},
+                  ),
+                ),
+                Expanded(
+                  child: ReusableCard(
+                    color: Theme.of(context).primaryColor,
+                    child: Category(
+                      type: Counter.age,
+                    ),
+                    onTap: () {},
+                  ),
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              final heightSquared = slider.initialValue / 100;
+              final result = weightCategory.weightCounter / (heightSquared * heightSquared);
+              Navigator.pushNamed(context, '/result', arguments: result);
+            },
+            child: Container(
+              color: kBottomBanner,
+              height: hContainerSubmited,
+              width: double.infinity,
+              child: Center(
+                child: Text(
+                  'Calculate',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 30.0),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
