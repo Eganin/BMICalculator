@@ -1,4 +1,5 @@
 import 'package:bmi_calc/ui/utils/constrained.dart';
+import 'package:bmi_calc/ui/widgets/submited_button.dart';
 import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
@@ -37,7 +38,7 @@ class ResultPage extends StatelessWidget {
                     textRes,
                     style: Theme.of(context)
                         .textTheme
-                        .headline3!
+                        .headline1!
                         .copyWith(color: colorRes),
                   ),
                   Text(
@@ -62,20 +63,7 @@ class ResultPage extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, '/');
             },
-            child: Container(
-              color: kBottomBanner,
-              height: hContainerSubmited,
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  'RE-Calculate',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 30.0),
-                ),
-              ),
-            ),
+            child: const SubmitedButton(text: 'RE-Calculate'),
           ),
         ],
       ),

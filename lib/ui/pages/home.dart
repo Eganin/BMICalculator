@@ -4,7 +4,6 @@ import 'package:bmi_calc/ui/widgets/reusable_card.dart';
 import 'package:bmi_calc/ui/widgets/slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,7 +24,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 3,
-        title: const Text('BMI Calculator'),
+        title: Text(
+          'BMI Calculator',
+          style: Theme.of(context).textTheme.headline2!.copyWith(color: Colors.white),
+        ),
         centerTitle: true,
       ),
       body: Column(
@@ -130,7 +132,8 @@ class _HomePageState extends State<HomePage> {
           GestureDetector(
             onTap: () {
               final heightSquared = slider.initialValue / 100;
-              final result = weightCategory.weightCounter / (heightSquared * heightSquared);
+              final result = weightCategory.weightCounter /
+                  (heightSquared * heightSquared);
               Navigator.pushNamed(context, '/result', arguments: result);
             },
             child: Container(
@@ -152,4 +155,9 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+enum Gender {
+  male,
+  female,
 }

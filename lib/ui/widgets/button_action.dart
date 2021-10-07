@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ButtonAction extends StatelessWidget {
 
@@ -10,19 +9,13 @@ class ButtonAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      customBorder: const CircleBorder(),
-      child: Container(
-        padding: const EdgeInsets.all(6.0),
-        decoration: const BoxDecoration(
-          color: Colors.black26,
-          shape: BoxShape.circle,
-        ),
-        child: IconButton(
-          onPressed: onTap,
-          icon: icon,
-        ),
-      ),
+    return RawMaterialButton(
+      shape: const CircleBorder(),
+      onPressed: onTap,
+      constraints:const BoxConstraints.tightFor(width: 56.0,height: 56.0),
+      elevation: 10,
+      fillColor: Colors.black12,
+      child: icon,
     );
   }
 }

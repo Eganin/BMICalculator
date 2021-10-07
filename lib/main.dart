@@ -66,8 +66,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-enum Gender {
-  male,
-  female,
-}
